@@ -37,10 +37,15 @@ namespace HWASI.AllForms
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -102,7 +107,7 @@ namespace HWASI.AllForms
             this.tabControl1.Location = new System.Drawing.Point(1, -1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(871, 369);
+            this.tabControl1.Size = new System.Drawing.Size(919, 526);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             // 
@@ -123,7 +128,7 @@ namespace HWASI.AllForms
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(863, 343);
+            this.tabPage1.Size = new System.Drawing.Size(911, 500);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основное";
             // 
@@ -132,7 +137,7 @@ namespace HWASI.AllForms
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(389, 42);
+            this.listBox1.Location = new System.Drawing.Point(425, 15);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(465, 144);
             this.listBox1.TabIndex = 10;
@@ -141,7 +146,7 @@ namespace HWASI.AllForms
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox1.Location = new System.Drawing.Point(389, 191);
+            this.textBox1.Location = new System.Drawing.Point(425, 164);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -152,6 +157,9 @@ namespace HWASI.AllForms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.DarkCyan;
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Location = new System.Drawing.Point(10, 257);
@@ -160,6 +168,34 @@ namespace HWASI.AllForms
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "groupBox4";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label10.Location = new System.Drawing.Point(-4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(60, 20);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "label10";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(68, 1307);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(3634, 1304);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "label8";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 1307);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(3634, 1304);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "label7";
             // 
             // label17
             // 
@@ -175,7 +211,7 @@ namespace HWASI.AllForms
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(-3, 0);
+            this.label18.Location = new System.Drawing.Point(83, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(61, 20);
             this.label18.TabIndex = 2;
@@ -195,6 +231,8 @@ namespace HWASI.AllForms
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.DarkCyan;
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Location = new System.Drawing.Point(10, 180);
@@ -203,6 +241,26 @@ namespace HWASI.AllForms
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox3";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label19.Location = new System.Drawing.Point(83, 27);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(60, 20);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "label19";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label15.Location = new System.Drawing.Point(84, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(60, 20);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "label15";
             // 
             // label11
             // 
@@ -317,7 +375,7 @@ namespace HWASI.AllForms
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(863, 343);
+            this.tabPage3.Size = new System.Drawing.Size(896, 500);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Нагрузка";
             // 
@@ -417,7 +475,7 @@ namespace HWASI.AllForms
             this.tabPage4.Controls.Add(this.listView1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(863, 343);
+            this.tabPage4.Size = new System.Drawing.Size(896, 500);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Процессы";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -432,7 +490,7 @@ namespace HWASI.AllForms
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(863, 343);
+            this.listView1.Size = new System.Drawing.Size(896, 500);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -454,7 +512,7 @@ namespace HWASI.AllForms
             this.tabPage5.Controls.Add(this.toolStrip1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(863, 343);
+            this.tabPage5.Size = new System.Drawing.Size(896, 500);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "SMART";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -475,7 +533,7 @@ namespace HWASI.AllForms
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(0, 25);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(863, 318);
+            this.listView2.Size = new System.Drawing.Size(896, 475);
             this.listView2.TabIndex = 5;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -517,7 +575,7 @@ namespace HWASI.AllForms
             this.toolStripComboBox1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(863, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(896, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -542,8 +600,10 @@ namespace HWASI.AllForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 359);
+            this.BackColor = System.Drawing.Color.DarkCyan;
+            this.ClientSize = new System.Drawing.Size(903, 374);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "MainForm";
             this.Text = "Main";
             this.tabControl1.ResumeLayout(false);
@@ -620,5 +680,10 @@ namespace HWASI.AllForms
         private ColumnHeader columnHeader8;
         private ToolStrip toolStrip1;
         private ToolStripComboBox toolStripComboBox1;
+        private Label label10;
+        private Label label8;
+        private Label label7;
+        private Label label19;
+        private Label label15;
     }
 }

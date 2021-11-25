@@ -1,29 +1,76 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Windows.Forms;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 using static HWASI.oksmart;
 
 namespace HWASI.AllForms
 {
     public partial class MainForm : Form
     {
+        public bool connectionState = false;
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "ZqzbLab21zm5cRdktIHny4Cpmv1khMAIkc34SZXb",
+            BasePath = "https://store-for-andrey-default-rtdb.europe-west1.firebasedatabase.app/",
+        };
+
+        IFirebaseClient client;
+
         private ListViewColumnSorter lvwColumnSorter;
         protected PerformanceCounter cpuCounter;
         protected PerformanceCounter ramCounter;
         SmartProgram smart = new SmartProgram();
+
+        public bool makeConnection()
+        {
+            client = new FireSharp.FirebaseClient(config);
+
+            if (client == null)
+            {
+                MessageBox.Show("Connection to server not established!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public async void sendData(Object data, String computerName)
+        {
+            
+            if (makeConnection())
+                try
+                {
+                    // Отправка на сервер
+                    SetResponse response = await client.SetTaskAsync("Information/" + computerName, data);
+                    Data result = response.ResultAs<Data>();
+
+                    connectionState = true;
+                    MessageBox.Show("Data Inserted " + result.DeviceName);
+                }
+                catch
+                {
+                    connectionState = false;
+                    MessageBox.Show("Server not available! ");
+                }
+        }
+
         public MainForm()
         {
             InitializeComponent();
 
             Timer timerlocal = new Timer();
-            timerlocal.Interval = 3000;//5 minutes
+            timerlocal.Interval = 3000;
             timerlocal.Tick += new System.EventHandler(timerlocal_Tick);
             timerlocal.Start();
 
-            timer1.Interval = 500;//5 minutes
+            timer1.Interval = 500;
             timer1.Tick += new System.EventHandler(timer1_Tick);
             timer1.Start();
 
@@ -32,28 +79,28 @@ namespace HWASI.AllForms
 
             var os = Environment.OSVersion;
 
-            label2.Text = Convert.ToString("Название: ");
-            label3.Text = Convert.ToString("Версия: ");
 
             var name = (from x in new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
                         select x.GetPropertyValue("Caption")).FirstOrDefault();
             var ver = (from x in new ManagementObjectSearcher("SELECT Version FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
                        select x.GetPropertyValue("Version")).FirstOrDefault();
-            label2.Text = label2.Text + " " + Convert.ToString(name);
-            label3.Text = label3.Text + " " + Convert.ToString(ver);
+            label2.Text = Convert.ToString(name);
+            label3.Text = Convert.ToString(ver);
 
 
 
             ManagementObjectSearcher myVideoObject = new ManagementObjectSearcher("select * from Win32_VideoController");
             foreach (ManagementObject obj in myVideoObject.Get())
             {
-                label12.Text = string.Format("Название: " + obj["Name"]);
-                label11.Text = string.Format("VRAM:  " + FormatBytes((long)Convert.ToDouble(obj["AdapterRAM"])));
+                label12.Text = string.Format("Название: ");
+                label15.Text = string.Format((String) obj["Name"]);
+                label11.Text = string.Format("VRAM: ");
+                label19.Text = string.Format(FormatBytes((long)Convert.ToDouble(obj["AdapterRAM"])));
             }
 
             ManagementObjectSearcher myProcessorObject = new ManagementObjectSearcher("select * from Win32_Processor");
             foreach (ManagementObject obj in myProcessorObject.Get())
-                label9.Text = string.Format("Название:  " + obj["Name"]);
+                label9.Text = string.Format((String) obj["Name"]);
 
             DriveInfo[] di = DriveInfo.GetDrives();
 
@@ -67,11 +114,43 @@ namespace HWASI.AllForms
                 label17.Text = string.Format("Частота:  " + obj["Speed"] + " MHz");
           
             double TotalRam = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
-            label18.Text = string.Format("Объем:  " + FormatBytes((long)Convert.ToDouble(TotalRam)));
+            label10.Text = string.Format("Объем: ");
+            label18.Text = string.Format(FormatBytes((long)Convert.ToDouble(TotalRam)));
             if (tabControl1.SelectedTab.Name.Equals("SMART"))
             {
                 outSmart();
             }
+
+            String device = SystemInformation.ComputerName;
+            var data = new Data
+            {
+                UserName = Environment.UserName,
+                DeviceName = device,
+                CpuName = label9.Text,
+                Ram = label18.Text,
+                GpuName = label15.Text + " " + label19.Text,
+                DateAndTime = getDate(),
+            };
+
+            sendData(data, device);
+
+        }
+
+        public string getDate()
+        {
+            DateTime localDate = DateTime.Now;
+            DateTime utcDate = DateTime.UtcNow;
+
+            // "en-US", "en-GB", "fr-FR", "de-DE",
+            String[] cultureNames = { "ru-RU" };
+
+            foreach (var cultureName in cultureNames)
+            {
+                var culture = new CultureInfo(cultureName);
+                return $"UTC date and time: {utcDate.ToString(culture)}, {utcDate.Kind:G}\n";
+            }
+
+            return "";
         }
 
         private void outSmart()
@@ -146,15 +225,14 @@ namespace HWASI.AllForms
         }
         private void timerlocal_Tick(object sender, EventArgs e)
         {
-            //do whatever you want 
+          
             RefreshMyForm();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //do whatever you want 
-            kabom();
+            load();
         }
-        private void kabom()
+        private void load()
         {
             progressBar1.Value = (int)(pcProcessor.NextValue());
             lblProcessor.Text = "Загрузка процессора: " + progressBar1.Value.ToString() + "%";
@@ -171,7 +249,6 @@ namespace HWASI.AllForms
             }
             else
             {
-                // remove all current records
                 listView1.BeginUpdate();
                 listView1.Items.Clear();
 
@@ -219,10 +296,8 @@ namespace HWASI.AllForms
 
         private void listView1_SelectedIndexChanged(object sender, ColumnClickEventArgs e)
         {
-            // Determine if clicked column is already the column that is being sorted.
             if (e.Column == lvwColumnSorter.SortColumn)
             {
-                // Reverse the current sort direction for this column.
                 if (lvwColumnSorter.Order == SortOrder.Ascending)
                 {
                     lvwColumnSorter.Order = SortOrder.Descending;
@@ -234,20 +309,16 @@ namespace HWASI.AllForms
             }
             else
             {
-                // Set the column number that is to be sorted; default to ascending.
                 lvwColumnSorter.SortColumn = e.Column;
                 lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
-            // Perform the sort with these new sort options.
             this.listView1.Sort();
         }
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            // Determine if clicked column is already the column that is being sorted.
             if (e.Column == lvwColumnSorter.SortColumn)
             {
-                // Reverse the current sort direction for this column.
                 if (lvwColumnSorter.Order == SortOrder.Ascending)
                 {
                     lvwColumnSorter.Order = SortOrder.Descending;
@@ -259,12 +330,10 @@ namespace HWASI.AllForms
             }
             else
             {
-                // Set the column number that is to be sorted; default to ascending.
                 lvwColumnSorter.SortColumn = e.Column;
                 lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
-            // Perform the sort with these new sort options.
             this.listView1.Sort();
         }
 
@@ -298,5 +367,15 @@ namespace HWASI.AllForms
         {
             outSmart();
         }
+    }
+
+    internal class Data
+    {
+        public string DeviceName { get; set; }
+        public string CpuName { get; set; }
+        public string Ram { get; set; }
+        public string GpuName { get; set; }
+        public string DateAndTime { get; set; }     
+        public string UserName { get; set; }
     }
 }
